@@ -15,9 +15,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignupValidation } from "@/lib/validation";
 import Loader from "@/components/ui/shared/loader";
+import { createUserAccount } from "@/lib/AppWrite/api";
 
 function SignupForm() {
-  const isLoading = true;
+  const isLoading = false;
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -30,8 +31,10 @@ function SignupForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof SignupValidation>) {
-    console.log("Submitted", values);
+  async function onSubmit(values: z.infer<typeof SignupValidation>) {
+    // console.log("Submitted", values);
+    const newUser = await createUserAccount(values);
+    console.log(newUser)
   }
 
   return (
